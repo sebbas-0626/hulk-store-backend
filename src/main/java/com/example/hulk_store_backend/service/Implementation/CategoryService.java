@@ -19,4 +19,9 @@ public class CategoryService implements ICategoryService {
         return this.categoryRepository.findAll();
     }
 
+    @Override
+    public Category findById(Long id) {
+        return this.categoryRepository.findById(id).orElseGet(()->null);
+    }
+
 }
