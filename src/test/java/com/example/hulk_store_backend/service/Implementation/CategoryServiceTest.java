@@ -23,6 +23,7 @@ class CategoryServiceTest {
     private CategoryService categoryService;
 
     private Category category;
+    private String responseDelete = "OK";
 
     @BeforeEach
     void setUp() {
@@ -49,5 +50,24 @@ class CategoryServiceTest {
     void findByIdNull() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
         assertNull(categoryService.findById(1L));
+    }
+
+    @Test
+    void create() {
+        when(categoryRepository.save(category)).thenReturn(category);
+        assertNotNull(categoryService.create(category));
+    }
+
+    @Test
+    void update(){
+        when(categoryRepository.save(category)).thenReturn(category);
+        assertNull(categoryService.update(10L, category));
+    }
+
+    @Test
+    void delete(){
+        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+        String result = categoryService.delete(1L);
+
     }
 }

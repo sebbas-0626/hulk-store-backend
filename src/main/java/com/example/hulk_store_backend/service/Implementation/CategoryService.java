@@ -26,11 +26,23 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category create(Category category) {
-        return null;
+        return this.categoryRepository.save(category);
     }
 
     @Override
     public Category update(Long id, Category category) {
-        return null;
+        Category categoryEntity = findById(id);
+        if (categoryEntity == null) return null;
+        categoryEntity.setName(category.getName());
+        categoryEntity.setDescription(category.getDescription());
+        return this.categoryRepository.save(categoryEntity);
+    }
+
+    @Override
+    public String delete(Long id) {
+        Category category = findById(id);
+        if (category == null) return "No existe la categoria";
+        this.categoryRepository.delete(category);
+        return "Categoria eliminada correctamente";
     }
 }
