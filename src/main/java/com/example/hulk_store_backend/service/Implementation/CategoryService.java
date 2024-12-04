@@ -41,8 +41,8 @@ public class CategoryService implements ICategoryService {
     @Override
     public String delete(Long id) {
         Category category = findById(id);
-        if (category == null) return "No existe la categoria";
+        if (category == null) return "The category does not exist";
         this.categoryRepository.delete(category);
-        return "Categoria eliminada correctamente";
+        return "Category successfully deleted";
     }
 }
