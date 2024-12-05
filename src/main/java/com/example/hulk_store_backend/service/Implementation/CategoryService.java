@@ -21,31 +21,20 @@ public class CategoryService implements ICategoryService {
         return this.categoryRepository.findAll();
     }
 
-//    @Override
-//    public Category findById(Long id) {
-//        return this.categoryRepository.findById(id).orElseGet(()->null);
-//    }
-
     @Override
     public Category findById(Long id) {
         return this.categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException(id)); // Lanza excepción si no encuentra
+                .orElseThrow(() -> new CategoryNotFoundException(id));
     }
 
-//    @Override
-//    public Category create(Category category) {
-//        return this.categoryRepository.save(category);
-//    }
-
-@Override
-public Category create(Category category) {
-    try {
-        return categoryRepository.save(category);
-    } catch (Exception e) {
-        throw new CategoryOperationException("Error al crear la categoría: " + e.getMessage());
+    @Override
+    public Category create(Category category) {
+        try {
+            return categoryRepository.save(category);
+        } catch (Exception e) {
+            throw new CategoryOperationException("Error creating category: " + e.getMessage());
+        }
     }
-}
-
 
     @Override
     public Category update(Long id, Category category) {

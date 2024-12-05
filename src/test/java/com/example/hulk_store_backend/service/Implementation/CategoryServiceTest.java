@@ -1,5 +1,6 @@
 package com.example.hulk_store_backend.service.Implementation;
 
+import com.example.hulk_store_backend.exception.CategoryNotFoundException;
 import com.example.hulk_store_backend.model.Category;
 import com.example.hulk_store_backend.repository.CategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +13,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class CategoryServiceTest {
 
@@ -48,7 +49,7 @@ class CategoryServiceTest {
     @Test
     void findByIdNull() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
-        assertNull(categoryService.findById(1L));
+        assertThrows(CategoryNotFoundException.class, () -> categoryService.findById(1L), "Category not found with ID: 1");
     }
 
     @Test
@@ -60,7 +61,7 @@ class CategoryServiceTest {
     @Test
     void update(){
         when(categoryRepository.save(category)).thenReturn(category);
-        assertNull(categoryService.update(10L, category));
+        assertThrows(CategoryNotFoundException.class, () -> categoryService.update(1L, category), "Category not found with ID: 1");
     }
 
     @Test
