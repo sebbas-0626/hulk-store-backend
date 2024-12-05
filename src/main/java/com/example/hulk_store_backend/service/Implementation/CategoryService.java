@@ -1,5 +1,6 @@
 package com.example.hulk_store_backend.service.Implementation;
 
+import com.example.hulk_store_backend.exception.CategoryNotFoundException;
 import com.example.hulk_store_backend.model.Category;
 import com.example.hulk_store_backend.repository.CategoryRepository;
 import com.example.hulk_store_backend.service.Interface.ICategoryService;
@@ -19,9 +20,15 @@ public class CategoryService implements ICategoryService {
         return this.categoryRepository.findAll();
     }
 
+//    @Override
+//    public Category findById(Long id) {
+//        return this.categoryRepository.findById(id).orElseGet(()->null);
+//    }
+
     @Override
     public Category findById(Long id) {
-        return this.categoryRepository.findById(id).orElseGet(()->null);
+        return this.categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException(id)); // Lanza excepción si no encuentra
     }
 
     @Override
