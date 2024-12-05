@@ -1,6 +1,7 @@
 package com.example.hulk_store_backend.service.Implementation;
 
 import com.example.hulk_store_backend.exception.CategoryNotFoundException;
+import com.example.hulk_store_backend.exception.CategoryOperationException;
 import com.example.hulk_store_backend.model.Category;
 import com.example.hulk_store_backend.repository.CategoryRepository;
 import com.example.hulk_store_backend.service.Interface.ICategoryService;
@@ -31,10 +32,20 @@ public class CategoryService implements ICategoryService {
                 .orElseThrow(() -> new CategoryNotFoundException(id)); // Lanza excepción si no encuentra
     }
 
-    @Override
-    public Category create(Category category) {
-        return this.categoryRepository.save(category);
+//    @Override
+//    public Category create(Category category) {
+//        return this.categoryRepository.save(category);
+//    }
+
+@Override
+public Category create(Category category) {
+    try {
+        return categoryRepository.save(category);
+    } catch (Exception e) {
+        throw new CategoryOperationException("Error al crear la categoría: " + e.getMessage());
     }
+}
+
 
     @Override
     public Category update(Long id, Category category) {
