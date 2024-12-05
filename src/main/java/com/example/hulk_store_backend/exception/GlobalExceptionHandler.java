@@ -15,12 +15,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleCategoryNotFoundException(CategoryNotFoundException ex) {
         Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("timestamp", LocalDateTime.now());
         errorResponse.put("status", HttpStatus.NOT_FOUND.value());
         errorResponse.put("error", "Category Not Found");
         errorResponse.put("message", ex.getMessage());
-        errorResponse.put("path", "/api/categories/{id}");
-
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }
