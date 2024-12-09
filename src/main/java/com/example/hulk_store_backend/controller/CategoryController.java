@@ -1,5 +1,6 @@
 package com.example.hulk_store_backend.controller;
 
+import com.example.hulk_store_backend.dto.CategoryDTO;
 import com.example.hulk_store_backend.model.Category;
 import com.example.hulk_store_backend.service.Interface.ICategoryService;
 import lombok.AllArgsConstructor;
@@ -16,9 +17,13 @@ public class CategoryController {
 
     private final ICategoryService categoryService;
 
-    @GetMapping()
-    public ResponseEntity<List<Category>> all() {
-        return new ResponseEntity<>(this.categoryService.all(), HttpStatus.OK);
+    //    @GetMapping()
+//    public ResponseEntity<List<Category>> all() {
+//        return new ResponseEntity<>(this.categoryService.all(), HttpStatus.OK);
+//    }
+    @GetMapping
+    public ResponseEntity<List<CategoryDTO>> all() {
+        return new ResponseEntity<>(categoryService.all(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -38,7 +43,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         return new ResponseEntity<>(this.categoryService.delete(id), HttpStatus.OK);
     }
 

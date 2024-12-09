@@ -1,11 +1,13 @@
 package com.example.hulk_store_backend.service.Implementation;
 
+import com.example.hulk_store_backend.dto.CategoryDTO;
 import com.example.hulk_store_backend.exception.CategoryNotFoundException;
 import com.example.hulk_store_backend.exception.CategoryOperationException;
 import com.example.hulk_store_backend.model.Category;
 import com.example.hulk_store_backend.repository.CategoryRepository;
 import com.example.hulk_store_backend.service.Interface.ICategoryService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +17,13 @@ import java.util.List;
 public class CategoryService implements ICategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
     @Override
-    public List<Category> all() {
-        return this.categoryRepository.findAll();
+    public List<CategoryDTO> all() {
+        return this.categoryRepository.findAll().stream().map(category -> this.modelMapper.map(category, CategoryDTO.class)).toList();
     }
+
 
     @Override
     public Category findById(Long id) {
