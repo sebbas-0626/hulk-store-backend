@@ -26,9 +26,14 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.all(), HttpStatus.OK);
     }
 
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Category> findById(@PathVariable Long id) {
+//        return new ResponseEntity<>(this.categoryService.findById(id), HttpStatus.OK);
+//    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id) {
-        return new ResponseEntity<>(this.categoryService.findById(id), HttpStatus.OK);
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(categoryService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping()

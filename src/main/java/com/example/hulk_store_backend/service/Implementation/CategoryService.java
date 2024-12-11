@@ -26,9 +26,14 @@ public class CategoryService implements ICategoryService {
 
 
     @Override
-    public Category findById(Long id) {
-        return this.categoryRepository.findById(id)
+//    public Category findById(Long id) {
+//        return this.categoryRepository.findById(id)
+//                .orElseThrow(() -> new CategoryNotFoundException(id));
+//    }
+    public CategoryDTO findBiId(Long id){
+        Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException(id));
+        return modelMapper.map(category,CategoryDTO.class);
     }
 
     @Override
