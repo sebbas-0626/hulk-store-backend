@@ -1,6 +1,6 @@
 package com.example.hulk_store_backend.service.Implementation;
 
-import com.example.hulk_store_backend.exception.CategoryNotFoundException;
+import com.example.hulk_store_backend.exception.ResourceNotFoundException;
 import com.example.hulk_store_backend.model.Category;
 import com.example.hulk_store_backend.repository.CategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +49,7 @@ class CategoryServiceTest {
     @Test
     void findByIdNull() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.findById(1L), "Category not found with ID: 1");
+        assertThrows(ResourceNotFoundException.class, () -> categoryService.findById(1L), "Category not found with ID: 1");
     }
 
     @Test
@@ -61,7 +61,7 @@ class CategoryServiceTest {
     @Test
     void update(){
         when(categoryRepository.save(category)).thenReturn(category);
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.update(1L, category), "Category not found with ID: 1");
+        assertThrows(ResourceNotFoundException.class, () -> categoryService.update(1L, category), "Category not found with ID: 1");
     }
 
     @Test

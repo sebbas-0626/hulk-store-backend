@@ -1,8 +1,8 @@
 package com.example.hulk_store_backend.service.Implementation;
 
 import com.example.hulk_store_backend.dto.CategoryDTO;
-import com.example.hulk_store_backend.exception.CategoryNotFoundException;
-import com.example.hulk_store_backend.exception.CategoryOperationException;
+import com.example.hulk_store_backend.exception.OperationException;
+import com.example.hulk_store_backend.exception.ResourceNotFoundException;
 import com.example.hulk_store_backend.model.Category;
 import com.example.hulk_store_backend.repository.CategoryRepository;
 import com.example.hulk_store_backend.service.Interface.ICategoryService;
@@ -28,20 +28,20 @@ public class CategoryService implements ICategoryService {
     @Override
     public Category findById(Long id) {
         return this.categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
-//    public CategoryDTO findBiId(Long id){
-//        Category category = categoryRepository.findById(id)
-//                .orElseThrow(() -> new CategoryNotFoundException(id));
-//        return modelMapper.map(category,CategoryDTO.class);
-//    }
+    public CategoryDTO findBiId(Long id){
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+        return modelMapper.map(category,CategoryDTO.class);
+    }
 
     @Override
     public Category create(Category category) {
         try {
             return categoryRepository.save(category);
         } catch (Exception e) {
-            throw new CategoryOperationException("Error creating category: " + e.getMessage());
+            throw new OperationException("Error creating : " + e.getMessage());
         }
     }
 
@@ -57,8 +57,8 @@ public class CategoryService implements ICategoryService {
     @Override
     public String delete(Long id) {
         Category category = findById(id);
-        if (category == null) return "The category does not exist";
+        if (category == null) return "The does not exist";
         this.categoryRepository.delete(category);
-        return "Category successfully deleted";
+        return "successfully deleted";
     }
 }
