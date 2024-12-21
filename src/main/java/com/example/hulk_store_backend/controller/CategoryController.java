@@ -27,14 +27,9 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id) {
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
         return new ResponseEntity<>(this.categoryService.findById(id), HttpStatus.OK);
     }
-
-//    @GetMapping("/{id}")
-//    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
-//        return new ResponseEntity<>(categoryService.findById(id), HttpStatus.OK);
-//    }
 
     @PostMapping()
     public ResponseEntity<Category> create(@RequestBody Category category) {

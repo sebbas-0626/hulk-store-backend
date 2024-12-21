@@ -26,14 +26,10 @@ public class CategoryService implements ICategoryService {
 
 
     @Override
-    public Category findById(Long id) {
-        return this.categoryRepository.findById(id)
+    public CategoryDTO findById(Long id) {
+        Category category = this.categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
-    }
-    public CategoryDTO findBiId(Long id){
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
-        return modelMapper.map(category,CategoryDTO.class);
+        return this.modelMapper.map(category, CategoryDTO.class);
     }
 
     @Override
@@ -47,18 +43,18 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category update(Long id, Category category) {
-        Category categoryEntity = findById(id);
-        if (categoryEntity == null) return null;
-        categoryEntity.setName(category.getName());
-        categoryEntity.setDescription(category.getDescription());
-        return this.categoryRepository.save(categoryEntity);
+        Category existingCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+        existingCategory.setName(category.getName());
+        existingCategory.setDescription(category.getDescription());
+        return categoryRepository.save(existingCategory);
     }
 
     @Override
     public String delete(Long id) {
-        Category category = findById(id);
-        if (category == null) return "The does not exist";
-        this.categoryRepository.delete(category);
-        return "successfully deleted";
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+        categoryRepository.delete(category);
+        return "Category deleted successfully";
     }
 }
