@@ -11,6 +11,7 @@ public class CategoryDTO {
     private Long id;
     @JsonProperty("category_name")
     private String name;
-
+    @JsonProperty("category_description")
+    private String description;
 }
 

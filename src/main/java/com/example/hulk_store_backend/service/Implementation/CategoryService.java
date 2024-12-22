@@ -33,13 +33,21 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Category create(Category category) {
+    public CategoryDTO create(Category category) {
         try {
-            return categoryRepository.save(category);
+            Category savedCategory = categoryRepository.save(category);
+            return this.modelMapper.map(savedCategory, CategoryDTO.class);
         } catch (Exception e) {
             throw new OperationException("Error creating : " + e.getMessage());
         }
     }
+//    public Category create(Category category) {
+//        try {
+//            return categoryRepository.save(category);
+//        } catch (Exception e) {
+//            throw new OperationException("Error creating : " + e.getMessage());
+//        }
+//    }
 
     @Override
     public Category update(Long id, Category category) {
@@ -55,6 +63,6 @@ public class CategoryService implements ICategoryService {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
         categoryRepository.delete(category);
-        return "Category deleted successfully";
+        return "deleted successfully";
     }
 }

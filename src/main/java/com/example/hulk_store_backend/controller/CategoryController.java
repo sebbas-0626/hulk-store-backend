@@ -17,10 +17,6 @@ public class CategoryController {
 
     private final ICategoryService categoryService;
 
-    //    @GetMapping()
-//    public ResponseEntity<List<Category>> all() {
-//        return new ResponseEntity<>(this.categoryService.all(), HttpStatus.OK);
-//    }
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> all() {
         return new ResponseEntity<>(categoryService.all(), HttpStatus.OK);
@@ -32,7 +28,7 @@ public class CategoryController {
     }
 
     @PostMapping()
-    public ResponseEntity<Category> create(@RequestBody Category category) {
+    public ResponseEntity<CategoryDTO> create(@RequestBody Category category) {
         return new ResponseEntity<>(this.categoryService.create(category), HttpStatus.CREATED);
     }
 
