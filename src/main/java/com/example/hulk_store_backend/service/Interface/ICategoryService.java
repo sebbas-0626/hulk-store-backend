@@ -9,6 +9,6 @@ public interface ICategoryService {
     List<CategoryDTO> all();
     CategoryDTO findById(Long id);
     CategoryDTO create(Category category);
-    Category update(Long id, Category category);
+    CategoryDTO update(Long id, Category category);
     String delete(Long id);
 }

@@ -41,21 +41,15 @@ public class CategoryService implements ICategoryService {
             throw new OperationException("Error creating : " + e.getMessage());
         }
     }
-//    public Category create(Category category) {
-//        try {
-//            return categoryRepository.save(category);
-//        } catch (Exception e) {
-//            throw new OperationException("Error creating : " + e.getMessage());
-//        }
-//    }
 
     @Override
-    public Category update(Long id, Category category) {
+    public CategoryDTO update(Long id, Category category) {
         Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
         existingCategory.setName(category.getName());
         existingCategory.setDescription(category.getDescription());
-        return categoryRepository.save(existingCategory);
+        Category updatedCategory = categoryRepository.save(existingCategory);
+        return this.modelMapper.map(updatedCategory, CategoryDTO.class);
     }
 
     @Override
