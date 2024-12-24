@@ -17,7 +17,7 @@ public class Product {
     @Column(nullable = false)
     private Double price;
     @Column(nullable = false)
-    private Integer stock;
+    private Long stock;
     @Column(name = "image_url")
     private String imageUrl;
     // Relación Muchos a Uno con Category
