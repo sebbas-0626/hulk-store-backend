@@ -2,6 +2,7 @@ package com.example.hulk_store_backend.service.Implementation;
 
 
 import com.example.hulk_store_backend.dto.ProductDTO;
+import com.example.hulk_store_backend.exception.ResourceNotFoundException;
 import com.example.hulk_store_backend.model.Product;
 import com.example.hulk_store_backend.repository.ProductRepository;
 import com.example.hulk_store_backend.service.Interface.IProductService;
@@ -10,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -19,15 +21,22 @@ public class ProductService implements IProductService {
     private final ModelMapper modelMapper;
     private final ProductRepository productRepository;
 
+//    @Override
+//    public List<ProductDTO> all() {
+//        return this.productRepository.findAll().stream().map(product -> this.modelMapper
+//                        .map(product, ProductDTO.class)).toList();
+//    }
+@Override
+public List<ProductDTO> all() {
+    return this.productRepository.findAll().stream()
+            .map(product -> this.modelMapper.map(product, ProductDTO.class))
+            .collect(Collectors.toList());
+}
     @Override
-    public List<ProductDTO> all() {
-        return this.productRepository.findAll().stream().map(product -> this.modelMapper
-                        .map(product, ProductDTO.class)).toList();
-    }
-
-    @Override
-    public Product findById(Long id) {
-        return null;
+    public ProductDTO findById(Long id) {
+    Product product = this.productRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException(id));
+    return this.modelMapper.map(product, ProductDTO.class);
     }
 
     @Override
