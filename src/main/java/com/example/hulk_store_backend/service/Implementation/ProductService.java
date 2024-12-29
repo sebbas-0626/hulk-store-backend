@@ -21,22 +21,18 @@ public class ProductService implements IProductService {
     private final ModelMapper modelMapper;
     private final ProductRepository productRepository;
 
-//    @Override
-//    public List<ProductDTO> all() {
-//        return this.productRepository.findAll().stream().map(product -> this.modelMapper
-//                        .map(product, ProductDTO.class)).toList();
-//    }
-@Override
-public List<ProductDTO> all() {
-    return this.productRepository.findAll().stream()
-            .map(product -> this.modelMapper.map(product, ProductDTO.class))
-            .collect(Collectors.toList());
-}
+    @Override
+    public List<ProductDTO> all() {
+        return this.productRepository.findAll().stream()
+                .map(product -> this.modelMapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public ProductDTO findById(Long id) {
-    Product product = this.productRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException(id));
-    return this.modelMapper.map(product, ProductDTO.class);
+        Product product = this.productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+        return this.modelMapper.map(product, ProductDTO.class);
     }
 
     @Override
