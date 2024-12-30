@@ -8,7 +8,7 @@ import java.util.List;
 public interface IProductService {
     List<ProductDTO> all();
     ProductDTO findById(Long id);
-    Product create(Product product);
+    ProductDTO create(Product product);
     Product update(Long id, Product product);
     String delete(Long id);
 
