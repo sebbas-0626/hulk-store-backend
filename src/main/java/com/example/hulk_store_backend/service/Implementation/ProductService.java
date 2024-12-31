@@ -36,7 +36,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public ProductDTO create(Product product) {
+    public ProductDTO create(ProductDTO product) {
         try {
             Product savedProduct = productRepository.save(product);
             return this.modelMapper.map(savedProduct, ProductDTO.class);
