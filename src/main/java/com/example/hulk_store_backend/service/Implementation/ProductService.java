@@ -37,12 +37,9 @@ public class ProductService implements IProductService {
 
     @Override
     public ProductDTO create(ProductDTO product) {
-        try {
-            Product savedProduct = productRepository.save(product);
-            return this.modelMapper.map(savedProduct, ProductDTO.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Error creating : " + e.getMessage());
-        }
+        Product newProduct = this.modelMapper.map(product, Product.class);
+        Product savedProduct = this.productRepository.save(newProduct);
+        return this.modelMapper.map(savedProduct, ProductDTO.class);
     }
 
     @Override

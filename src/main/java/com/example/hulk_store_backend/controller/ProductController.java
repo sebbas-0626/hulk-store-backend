@@ -22,14 +22,15 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> all() {
         return new ResponseEntity<>(productService.all(), HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
         return new ResponseEntity<>(this.productService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping()
-public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO product) {
+    public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO product) {
         return new ResponseEntity<>(this.productService.create(product), HttpStatus.CREATED);
-        
+
     }
 }
