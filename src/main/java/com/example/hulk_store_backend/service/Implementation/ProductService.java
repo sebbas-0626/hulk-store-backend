@@ -2,6 +2,7 @@ package com.example.hulk_store_backend.service.Implementation;
 
 
 import com.example.hulk_store_backend.dto.ProductDTO;
+import com.example.hulk_store_backend.exception.OperationException;
 import com.example.hulk_store_backend.exception.ResourceNotFoundException;
 import com.example.hulk_store_backend.model.Product;
 import com.example.hulk_store_backend.repository.ProductRepository;
@@ -37,9 +38,13 @@ public class ProductService implements IProductService {
 
     @Override
     public ProductDTO create(ProductDTO product) {
-        Product newProduct = this.modelMapper.map(product, Product.class);
-        Product savedProduct = this.productRepository.save(newProduct);
-        return this.modelMapper.map(savedProduct, ProductDTO.class);
+        try {
+            Product savedProduct = productRepository.save(this.modelMapper.map(product, Product.class));
+            return this.modelMapper.map(savedProduct, ProductDTO.class);
+        }
+        catch (Exception e) {
+            throw new OperationException("Error creating : " + e.getMessage());
+        }
     }
 
     @Override
@@ -49,7 +54,6 @@ public class ProductService implements IProductService {
 
     @Override
     public String delete(Long id) {
-        return "";
+        return null;
     }
-
 }

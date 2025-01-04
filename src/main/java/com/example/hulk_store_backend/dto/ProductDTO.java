@@ -25,4 +25,7 @@ public class ProductDTO {
 
     @JsonProperty("product_status")
     private Boolean status;
+
+    @JsonProperty("category_id")
+    private Long categoryId;
 }
