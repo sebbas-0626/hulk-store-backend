@@ -49,6 +49,8 @@ public class ProductService implements IProductService {
 
     @Override
     public Product update(Long id, Product product) {
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
         return null;
     }
 
