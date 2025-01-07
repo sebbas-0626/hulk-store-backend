@@ -1,5 +1,6 @@
 package com.example.hulk_store_backend.dto;
 
+import com.example.hulk_store_backend.model.Category;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -28,4 +29,8 @@ public class ProductDTO {
 
     @JsonProperty("category_id")
     private Long categoryId;
+
+    public Category orElseThrow(Object o) {
+        return null;
+    }
 }

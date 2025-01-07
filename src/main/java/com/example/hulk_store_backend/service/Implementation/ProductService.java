@@ -4,7 +4,9 @@ package com.example.hulk_store_backend.service.Implementation;
 import com.example.hulk_store_backend.dto.ProductDTO;
 import com.example.hulk_store_backend.exception.OperationException;
 import com.example.hulk_store_backend.exception.ResourceNotFoundException;
+import com.example.hulk_store_backend.model.Category;
 import com.example.hulk_store_backend.model.Product;
+import com.example.hulk_store_backend.repository.CategoryRepository;
 import com.example.hulk_store_backend.repository.ProductRepository;
 import com.example.hulk_store_backend.service.Interface.IProductService;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,7 @@ public class ProductService implements IProductService {
 
     private final ModelMapper modelMapper;
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository; // Inyección del repositorio correcto
 
     @Override
     public List<ProductDTO> all() {
@@ -37,15 +40,21 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public ProductDTO create(ProductDTO product) {
-        try {
-            Product savedProduct = productRepository.save(this.modelMapper.map(product, Product.class));
-            return this.modelMapper.map(savedProduct, ProductDTO.class);
-        }
-        catch (Exception e) {
-            throw new OperationException("Error creating : " + e.getMessage());
-        }
+    public ProductDTO create(ProductDTO productDTO) {
+        // Buscar la categoría por ID
+        Category category = categoryRepository.findById(productDTO.getCategoryId())
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with ID: " + productDTO.getCategoryId()));
+        // Mapear el DTO a la entidad Product
+        Product product = modelMapper.map(productDTO, Product.class);
+        product.setCategory(category); // Asignar la categoría al producto
+
+        // Guardar el producto en la base de datos
+        Product savedProduct = productRepository.save(product);
+
+        // Retornar el producto guardado como DTO
+        return modelMapper.map(savedProduct, ProductDTO.class);
     }
+
 
     @Override
     public Product update(Long id, Product product) {

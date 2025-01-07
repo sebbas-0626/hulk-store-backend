@@ -28,8 +28,12 @@ public class ProductController {
         return new ResponseEntity<>(this.productService.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping()
-    public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO product) {
-        return new ResponseEntity<>(this.productService.create(product), HttpStatus.CREATED);
+//    @PostMapping()
+//    public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO product) {
+//        return new ResponseEntity<>(this.productService.create(product), HttpStatus.CREATED);
+//    }
+    @PostMapping
+    public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO productDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.create(productDTO));
     }
 }
