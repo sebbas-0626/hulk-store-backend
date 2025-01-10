@@ -47,7 +47,6 @@ public class ProductService implements IProductService {
         // Mapear el DTO a la entidad Product
         Product product = modelMapper.map(productDTO, Product.class);
         product.setCategory(category); // Asignar la categoría al producto
-
         // Guardar el producto en la base de datos
         Product savedProduct = productRepository.save(product);
 
