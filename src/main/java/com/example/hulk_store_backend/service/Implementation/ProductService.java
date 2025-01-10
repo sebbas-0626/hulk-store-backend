@@ -42,7 +42,6 @@ public class ProductService implements IProductService {
     @Override
     public ProductDTO create(ProductDTO productDTO) {
         // Buscar la categoría por ID
-
         Category category = categoryRepository.findById(productDTO.getCategoryId())
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with ID: " + productDTO.getCategoryId()));
         // Mapear el DTO a la entidad Product
