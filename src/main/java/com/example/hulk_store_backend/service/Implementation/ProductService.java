@@ -52,7 +52,6 @@ public class ProductService implements IProductService {
         Product savedProduct = productRepository.save(product);
         // Retornar el producto guardado como DTO
         return modelMapper.map(savedProduct, ProductDTO.class);
-
     }
 
 
