@@ -41,17 +41,7 @@ public class ProductService implements IProductService {
 
     @Override
     public ProductDTO create(ProductDTO productDTO) {
-        // Buscar la categoría por ID
-        Category category = categoryRepository.findById(productDTO.getCategoryId())
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found with ID: " + productDTO.getCategoryId()));
-        // Mapear el DTO a la entidad Product
-        Product product = modelMapper.map(productDTO, Product.class);
-        product.setCategory(category); // Asignar la categoría al producto
-        // Guardar el producto en la base de datos
-        Product savedProduct = productRepository.save(product);
-        // Retornar el producto guardado como DTO
-        return modelMapper.map(savedProduct, ProductDTO.class);
-
+        return null;
     }
 
 
