@@ -41,15 +41,7 @@ public class ProductService implements IProductService {
 
     @Override
     public ProductDTO create(ProductDTO productDTO) {
-        try {
-            Category category = categoryRepository.findById(productDTO.getCategoryId())
-//                    revisar problema con el orElseThrow
-                    .orElseThrow(() -> new ResourceNotFoundException(productDTO.getCategoryId()));
-            Product product = this.modelMapper.map(productDTO, Product.class);
-            product.setCategory(category);
-            Product savedProduct = productRepository.save(product);
-            return this.modelMapper.map(savedProduct, ProductDTO.class);
-        }
+        return null;
     }
 
 
